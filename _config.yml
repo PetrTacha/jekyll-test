@@ -1,0 +1,41 @@
+title: Nase doc AAA
+email: your-email@example.com
+
+# Build settings
+theme: minima
+plugins:
+  - jemoji
+  - jekyll-relative-links
+  - jekyll-titles-from-headings
+
+repository: tvoje-jmeno/tvoje-repozitar
+markdown: GFM
+
+defaults:
+  - scope:
+      path: "app1/*"
+      type: "pages"
+    values:
+      layout: docs
+      product: app1
+
+  - scope:
+      path: "app2/*"
+      type: "pages"
+    values:
+      layout: docs
+      product: app2
+
+  - scope:
+      path: "apps/*"
+      type: "pages"
+    values:
+      layout: docs
+      product: apps
+
+  - scope:
+      path: "xxx/*"
+      type: "pages"
+    values:
+      layout: docs
+      product: xxx

@@ -1,0 +1,76 @@
+---
+---
+
+.site-header .page-link.is-active {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
+.docs-container {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+.sidebar {
+  flex: 0 0 15rem;
+  position: sticky;
+  top: 2rem;
+}
+
+.docs-sidebar-nav {
+  padding: 1.25rem;
+  border: 1px solid #e1e4e8;
+  border-radius: 0.5rem;
+  background: #f8fafc;
+}
+
+.docs-sidebar-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.docs-sidebar-item + .docs-sidebar-item {
+  margin-top: 0.5rem;
+}
+
+.docs-sidebar-link {
+  display: block;
+  color: #2f3b52;
+  text-decoration: none;
+}
+
+.docs-sidebar-link:hover,
+.docs-sidebar-link:focus {
+  color: #111827;
+  text-decoration: underline;
+}
+
+.docs-sidebar-link.is-active {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.docs-content {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+@media screen and (max-width: 800px) {
+  .docs-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .sidebar {
+    position: static;
+    width: 100%;
+    flex-basis: auto;
+  }
+
+  .docs-sidebar-nav {
+    overflow-x: auto;
+  }
+}

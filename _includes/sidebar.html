@@ -1,0 +1,19 @@
+{%- if page.product -%}
+  {%- assign product_pages = site.pages | where: "product", page.product -%}
+  {%- assign ordered_pages = product_pages | where_exp: "item", "item.nav_order" | sort: "nav_order" -%}
+  {%- assign unordered_pages = product_pages | where_exp: "item", "item.nav_order == nil" | sort: "title" -%}
+  {%- assign sorted_pages = ordered_pages | concat: unordered_pages -%}
+  {%- if sorted_pages.size > 0 -%}
+    <nav class="docs-sidebar-nav" aria-label="Documentation navigation">
+      <ul class="docs-sidebar-list">
+        {%- for doc_page in sorted_pages -%}
+          {%- if doc_page.title -%}
+            <li class="docs-sidebar-item">
+              <a class="docs-sidebar-link{% if doc_page.url == page.url %} is-active{% endif %}" href="{{ doc_page.url | relative_url }}"{% if doc_page.url == page.url %} aria-current="page"{% endif %}>{{ doc_page.title | escape }}</a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </nav>
+  {%- endif -%}
+{%- endif -%}

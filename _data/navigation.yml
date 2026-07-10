@@ -1,0 +1,16 @@
+products:
+  - id: app1
+    title: Application 1
+    url: /app1/
+
+  - id: app2
+    title: Application 2
+    url: /app2/
+
+  - id: apps
+    title: Apps
+    url: /apps/
+
+  - id: xxx
+    title: xxx
+    url: /xxx/

@@ -1,0 +1,23 @@
+---
+layout: default
+---
+
+<div class="docs-container">
+  <aside class="sidebar" aria-label="Documentation navigation">
+    {% include sidebar.html %}
+  </aside>
+
+  <article class="docs-content">
+    {% if page.title %}
+      <header class="post-header">
+        <h1 class="post-title">{{ page.title | escape }}</h1>
+      </header>
+    {% endif %}
+
+    <div class="post-content">
+      {{ content }}
+    </div>
+  </article>
+</div>
+
+<script src="{{ "/assets/js/github-alerts.js" | relative_url }}" defer></script>
