@@ -1,0 +1,104 @@
+{% assign hub = include.data %}
+{% if hub == nil %}
+{% assign hub = site.data.docs_hub %}
+{% endif %}
+
+<div class="docs-hub" data-docs-hub>
+<header class="docs-hub__header">
+<p class="docs-hub__eyebrow">Internal documentation</p>
+<h1 class="docs-hub__title">{{ hub.title | default: "Documentation Hub" }}</h1>
+{% if hub.description %}
+<p class="docs-hub__description">{{ hub.description }}</p>
+{% endif %}
+
+<div class="docs-hub__search-wrap">
+<label class="docs-hub__sr-only" for="docs-hub-search">Search documentation links</label>
+
+<span class="docs-hub__search-icon" aria-hidden="true">
+<svg viewBox="0 0 24 24" focusable="false">
+<circle cx="11" cy="11" r="7"></circle>
+<path d="m20 20-4-4"></path>
+</svg>
+</span>
+
+<input
+class="docs-hub__search"
+id="docs-hub-search"
+type="search"
+placeholder="{{ hub.search_placeholder | default: 'Search tools, environments, or pages…' }}"
+autocomplete="off"
+spellcheck="false"
+data-docs-hub-search
+>
+
+<button
+class="docs-hub__clear"
+type="button"
+aria-label="Clear search"
+title="Clear search"
+data-docs-hub-clear
+hidden
+>
+<span aria-hidden="true">×</span>
+</button>
+
+<kbd class="docs-hub__shortcut" aria-label="Keyboard shortcut: Control or Command plus K">⌘ K</kbd>
+</div>
+
+<div class="docs-hub__toolbar">
+<nav class="docs-hub__section-nav" aria-label="Documentation sections">
+{% for section in hub.sections %}
+<a href="#docs-hub-{{ section.id | default: section.title | slugify }}">{{ section.title }}</a>
+{% endfor %}
+</nav>
+
+<p class="docs-hub__status" aria-live="polite" data-docs-hub-status>All resources</p>
+</div>
+</header>
+
+<div class="docs-hub__sections">
+{% for section in hub.sections %}
+{% assign section_id = section.id | default: section.title | slugify %}
+
+<section
+class="docs-hub__section"
+id="docs-hub-{{ section_id }}"
+aria-labelledby="docs-hub-heading-{{ section_id }}"
+style="--docs-hub-accent: {{ section.accent | default: '#2563eb' }};"
+data-docs-hub-section
+>
+<header class="docs-hub__section-header">
+{% assign section_icon_value = section.icon | default: section.title | slice: 0, 2 %}
+{% assign section_icon_lower = section_icon_value | downcase %}
+<span class="docs-hub__section-icon" aria-hidden="true">
+{% if section_icon_lower contains ".png" or section_icon_lower contains ".svg" or section_icon_lower contains ".jpg" or section_icon_lower contains ".jpeg" or section_icon_lower contains ".webp" %}
+<img class="docs-hub__tiny-logo" src="{{ section_icon_value | relative_url }}" alt="" loading="lazy" decoding="async">
+{% else %}
+{{ section_icon_value | escape }}
+{% endif %}
+</span>
+
+<div>
+<h2 class="docs-hub__section-title" id="docs-hub-heading-{{ section_id }}">{{ section.title }}</h2>
+{% if section.description %}
+<p class="docs-hub__section-description">{{ section.description }}</p>
+{% endif %}
+</div>
+</header>
+
+<div class="docs-hub__grid">
+{% for tool in section.tools %}
+{% include docs-hub-card.html card=tool section=section %}
+{% endfor %}
+</div>
+</section>
+{% endfor %}
+</div>
+
+<div class="docs-hub__no-results" data-docs-hub-empty hidden>
+<strong>No matching resources</strong>
+<span>Try another tool, environment, or page name.</span>
+</div>
+</div>
+
+<script src="{{ '/assets/js/docs-hub.js' | relative_url }}" defer></script>

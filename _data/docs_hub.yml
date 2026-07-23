@@ -1,0 +1,153 @@
+title: Documentation Hub
+description: Quick access to internal tools, environments, and pages.
+search_placeholder: Search tools, environments, or pages…
+
+sections:
+  - id: development
+    title: Development
+    description: Tools and platforms for building and shipping software.
+    icon: "</>"
+    accent: "#2563eb"
+    tools:
+      - name: DX
+        icon: DX
+        buttons:
+          - label: TDA
+            icon: /assets/icons/tda-icon.png
+            color: "#0f62fe"
+            url: "https://example.com/development/dx/tda"
+          - label: PRO
+            icon: P
+            color: "#1f9d55"
+            url: "https://example.com/development/dx/pro"
+        secondary_links:
+          - label: API docs
+            icon: "?"
+            url: "https://example.com/development/dx/docs"
+          - label: Runbook
+            icon: R
+            url: "https://example.com/development/dx/runbook"
+
+      - name: GitHub
+        icon: GH
+        icon_image: /assets/logo/github-logo.png
+        buttons:
+          - label: TDA
+            icon_image: /assets/logo/github-logo.png
+            color: "#111827"
+            url: "https://example.com/development/github/tda"
+          - label: PRO
+            icon_image: /assets/logo/github-logo.png
+            color: "#374151"
+            url: "https://example.com/development/github/pro"
+        secondary_links:
+          - label: Repositories
+            icon: GH
+            url: "https://example.com/development/github/repositories"
+          - label: Actions guide
+            icon: CI
+            url: "https://example.com/development/github/actions-guide"
+
+      - name: GitLab
+        icon: GL
+        buttons:
+          - label: TDA
+            icon: T
+            color: "#fc6d26"
+            url: "https://example.com/development/gitlab/tda"
+          - label: PRO
+            icon: P
+            color: "#f97316"
+            url: "https://example.com/development/gitlab/pro"
+        secondary_links:
+          - label: Pipelines
+            icon: CI
+            url: "https://example.com/development/gitlab/pipelines"
+
+  - id: monitoring
+    title: Monitoring
+    description: Observability, metrics, and log analysis tools.
+    icon: "↗"
+    accent: "#16a34a"
+    tools:
+      - name: APM
+        icon: APM
+        buttons:
+          - label: TDA
+            icon: T
+            color: "#0e9f6e"
+            url: "https://example.com/monitoring/apm/tda"
+        secondary_links:
+          - label: Alerts
+            icon: "!"
+            url: "https://example.com/monitoring/apm/alerts"
+
+      - name: SOI
+        icon: SOI
+        buttons:
+          - label: TDA
+            icon: T
+            color: "#10b981"
+            url: "https://example.com/monitoring/soi/tda"
+        secondary_links:
+          - label: Dashboard
+            icon: D
+            url: "https://example.com/monitoring/soi/dashboard"
+
+      - name: Kibana
+        icon: K
+        buttons:
+          - label: PRO
+            icon: P
+            color: "#2563eb"
+            url: "https://example.com/monitoring/kibana/pro"
+          - label: TDA
+            icon: T
+            color: "#0891b2"
+            url: "https://example.com/monitoring/kibana/tda"
+        secondary_links:
+          - label: Saved searches
+            icon: S
+            url: "https://example.com/monitoring/kibana/saved-searches"
+
+  - id: business-app
+    title: Business App
+    description: Enterprise applications and knowledge base.
+    icon: "▣"
+    accent: "#b7791f"
+    tools:
+      - name: Confluence
+        icon: C
+        buttons:
+          - label: page1
+            icon: "1"
+            color: "#1d4ed8"
+            url: "https://example.com/business/confluence/page1"
+          - label: page2
+            icon: "2"
+            color: "#2563eb"
+            url: "https://example.com/business/confluence/page2"
+          - label: page3
+            icon: "3"
+            color: "#3b82f6"
+            url: "https://example.com/business/confluence/page3"
+          - label: page4
+            icon: "4"
+            color: "#60a5fa"
+            url: "https://example.com/business/confluence/page4"
+        secondary_links:
+          - label: Space home
+            icon: C
+            url: "https://example.com/business/confluence/home"
+
+      - name: SAP
+        icon: SAP
+        buttons:
+          - label: page
+            icon: P
+            color: "#0284c7"
+            url: "https://example.com/business/sap/page"
+        secondary_links:
+          - label: Support
+            icon: S
+            url: "https://example.com/business/sap/support"

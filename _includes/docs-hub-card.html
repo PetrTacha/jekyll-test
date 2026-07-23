@@ -1,0 +1,110 @@
+{% assign card = include.card | default: include.tool | default: include.data %}
+{% assign card_title = card.name | default: card.title %}
+{% assign card_accent = include.accent | default: include.section.accent | default: '#2563eb' %}
+
+{% capture card_search_text %}
+{{ include.search_text }}
+{% if include.section %}{{ include.section.title }} {{ include.section.description }}{% endif %}
+{{ card_title }}
+{% for button in card.buttons %}{{ button.label }} {% endfor %}
+{% for secondary in card.secondary_links %}{{ secondary.label }} {% endfor %}
+{% endcapture %}
+
+<article
+class="docs-hub__card"
+data-docs-hub-card
+data-search-text="{{ card_search_text | strip_newlines | replace: '  ', ' ' | downcase | escape }}"
+style="--docs-hub-accent: {{ card_accent }};"
+>
+<div class="docs-hub__card-header">
+<span class="docs-hub__tool-icon" aria-hidden="true">
+{% if card.icon_image %}
+<img class="docs-hub__tool-logo" src="{{ card.icon_image | relative_url }}" alt="" loading="lazy" decoding="async">
+{% else %}
+{% assign card_icon_value = card.icon | default: card_title | slice: 0, 2 %}
+{% assign card_icon_lower = card_icon_value | downcase %}
+{% if card_icon_lower contains ".png" or card_icon_lower contains ".svg" or card_icon_lower contains ".jpg" or card_icon_lower contains ".jpeg" or card_icon_lower contains ".webp" %}
+<img class="docs-hub__tool-logo" src="{{ card_icon_value | relative_url }}" alt="" loading="lazy" decoding="async">
+{% else %}
+{{ card_icon_value | escape }}
+{% endif %}
+{% endif %}
+</span>
+<h3 class="docs-hub__card-title">{{ card_title }}</h3>
+</div>
+
+{% if card.buttons and card.buttons.size > 0 %}
+<div class="docs-hub__primary-buttons" aria-label="{{ card_title }} primary actions">
+{% for button in card.buttons limit: 6 %}
+{% assign button_url = button.url | strip %}
+{% if button_url contains "](" %}
+{% assign button_url = button_url | split: "](" | last | split: ")" | first %}
+{% endif %}
+{% assign button_external = false %}
+{% if button_url contains "://" %}
+{% assign button_external = true %}
+{% endif %}
+<a class="docs-hub__primary-button" style="--primary-button-color: {{ button.color | default: card_accent | default: '#2563eb' }};" href="{% if button_external %}{{ button_url }}{% else %}{{ button_url | relative_url }}{% endif %}"{% if button_external %} target="_blank" rel="noopener noreferrer"{% endif %}>
+<span class="docs-hub__primary-button-icon" aria-hidden="true">
+{% if button.icon_image %}
+<img class="docs-hub__tiny-logo" src="{{ button.icon_image | relative_url }}" alt="" loading="lazy" decoding="async">
+{% else %}
+{% assign button_icon_value = button.icon | default: "*" %}
+{% assign button_icon_lower = button_icon_value | downcase %}
+{% if button_icon_lower contains ".png" or button_icon_lower contains ".svg" or button_icon_lower contains ".jpg" or button_icon_lower contains ".jpeg" or button_icon_lower contains ".webp" %}
+<img class="docs-hub__tiny-logo" src="{{ button_icon_value | relative_url }}" alt="" loading="lazy" decoding="async">
+{% else %}
+{{ button_icon_value | escape }}
+{% endif %}
+{% endif %}
+</span>
+<span class="docs-hub__primary-button-label">{{ button.label }}</span>
+</a>
+{% endfor %}
+</div>
+{% endif %}
+
+{% if card.secondary_links and card.secondary_links.size > 0 %}
+<ul class="docs-hub__secondary-links" aria-label="{{ card_title }} secondary links">
+{% for secondary in card.secondary_links %}
+{% assign secondary_url = secondary.url | strip %}
+{% if secondary_url contains "](" %}
+{% assign secondary_url = secondary_url | split: "](" | last | split: ")" | first %}
+{% endif %}
+{% assign secondary_external = false %}
+{% if secondary_url contains "://" %}
+{% assign secondary_external = true %}
+{% endif %}
+<li>
+<a class="docs-hub__secondary-link" href="{% if secondary_external %}{{ secondary_url }}{% else %}{{ secondary_url | relative_url }}{% endif %}"{% if secondary_external %} target="_blank" rel="noopener noreferrer"{% endif %}>
+<span class="docs-hub__secondary-icon" aria-hidden="true">
+{% if secondary.icon_image %}
+<img class="docs-hub__tiny-logo" src="{{ secondary.icon_image | relative_url }}" alt="" loading="lazy" decoding="async">
+{% else %}
+{% assign secondary_icon_value = secondary.icon | default: ">" %}
+{% assign secondary_icon_lower = secondary_icon_value | downcase %}
+{% if secondary_icon_lower contains ".png" or secondary_icon_lower contains ".svg" or secondary_icon_lower contains ".jpg" or secondary_icon_lower contains ".jpeg" or secondary_icon_lower contains ".webp" %}
+<img class="docs-hub__tiny-logo" src="{{ secondary_icon_value | relative_url }}" alt="" loading="lazy" decoding="async">
+{% else %}
+{{ secondary_icon_value | escape }}
+{% endif %}
+{% endif %}
+</span>
+<span class="docs-hub__secondary-label">{{ secondary.label }}</span>
+<svg class="docs-hub__trailing-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+<path d="M14 5h5v5"></path>
+<path d="M10 14 19 5"></path>
+<path d="M19 13v6H5V5h6"></path>
+</svg>
+</a>
+</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% assign buttons_count = card.buttons | default: empty | size %}
+{% assign secondary_count = card.secondary_links | default: empty | size %}
+{% if buttons_count == 0 and secondary_count == 0 %}
+<p class="docs-hub__empty-card">No card actions configured.</p>
+{% endif %}
+</article>

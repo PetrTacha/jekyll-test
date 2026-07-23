@@ -1,91 +1,100 @@
-## Workflow Overview
+# Jekyll Dokumentace - Docker Spusteni
 
-You can write documentation content in markdown only.
+Tento projekt je pripraveny pro lokalni beh pres Docker.
 
-The theme behavior (top nav, left nav, alert rendering) is already configured globally.
-You only need to author markdown pages.
+docker run --rm -it -p 4000:4000 -p 35729:35729 -v "D:/Work/CSOB/jekyll-test:/srv/jekyll" jekyll/jekyll:4 sh -c "bundle install; bundle exec jekyll serve --host 0.0.0.0 --livereload --livereload-port 35729 --force_polling"
 
-## Create a new page
-## Docs Workflow
+## Pozadavky
 
-This repository is markdown-first.
+- Nainstalovany Docker Desktop
+- Volny port 4000
 
-- Write docs in markdown files.
-- Keep minimal front matter only:
+## Spusteni lokalniho serveru
+
+1. Otevri terminal v korenu repozitare.
+2. Spust server timto prikazem (watch + live reload):
+
+```powershell
+docker run --rm -it -p 4000:4000 -p 35729:35729 -v "D:/Work/CSOB/jekyll-test:/srv/jekyll" jekyll/jekyll:4 sh -c "bundle install; bundle exec jekyll serve --host 0.0.0.0 --livereload --force_polling"
+```
+
+3. Otevri stranku v prohlizeci:
+
+```text
+http://localhost:4000
+```
+
+Jekyll serve automaticky sleduje zmeny souboru a pregeneruje stranku.
+Volba --livereload navic posle refresh do browseru automaticky.
+
+## Alternativa s aktualni slozkou
+
+Pokud jsi uz v koreni projektu, muzes pouzit i variantu s aktualni cestou:
+
+```powershell
+docker run --rm -it -p 4000:4000 -p 35729:35729 -v "${PWD}:/srv/jekyll" jekyll/jekyll:4 sh -c "bundle install; bundle exec jekyll serve --host 0.0.0.0 --livereload --force_polling"
+```
+
+## Jednorazovy build bez serveru
+
+```powershell
+docker run --rm -v "D:/Work/CSOB/jekyll-test:/srv/jekyll" jekyll/jekyll:4 sh -c "bundle install; bundle exec jekyll build"
+```
+
+Vystup se vygeneruje do slozky _site.
+
+## Zastaveni serveru
+
+V terminalu stiskni Ctrl+C.
+
+## Nejbeznejsi problemy
+
+- Chyba obsazeneho portu 4000:
+  zmen mapovani treba na -p 4001:4000 a otevri http://localhost:4001.
+- Live reload nereaguje:
+  over, ze mapujes i port 35729 a ze mas v prikazu --livereload.
+- Prvni spusteni trva dele:
+  Docker stahuje image a bundler instaluje zavislosti.
+
+## Konfigurace karet (novy model)
+
+Karta ma 3 vrstvy pod sebou:
+
+1. Hlavicka: nazev + icon nebo icon_image
+2. Primarni tlacitka: pole buttons (0 az 6)
+3. Vedlejsi odkazy: pole secondary_links (0 az N)
+
+Minimalni priklad jedne karty v _data/docs_hub.yml:
 
 ```yaml
----
-layout: page
-title: My Page
-permalink: /my-section/my-page/
----
+tools:
+  - name: GitHub
+    icon: GH
+    icon_image: /assets/logo/github-logo.png
+    buttons:
+      - label: TDA
+        icon_image: /assets/logo/github-logo.png
+        color: "#111827"
+        url: "https://example.com/development/github/tda"
+        external: true
+      - label: PRO
+        icon: P
+        color: "#374151"
+        url: "https://example.com/development/github/pro"
+        external: true
+    secondary_links:
+      - label: Repositories
+        icon: GH
+        url: "https://example.com/development/github/repositories"
+      - label: Actions guide
+        icon: CI
+        url: "https://example.com/development/github/actions-guide"
 ```
 
-- Do not use per-page subnav front matter unless you explicitly want custom behavior.
-- Top and left navigation are global and come from [ _data/navigation.yml ](_data/navigation.yml).
-- GitHub alerts are authored directly in markdown and rendered by the theme:
+Poznamky:
 
-```md
-> [!NOTE]
-> Note content.
-```
-
-## Build Behavior
-
-Your setup with Docker jekyll/builder:jekyll and mapping host _site to /srv/jekyll/_site works for this project.
-
-Why it works:
-
-- The layout override is in [ _layouts/default.html ](_layouts/default.html).
-- The style override is in [ assets/main.scss ](assets/main.scss).
-- Navigation data is in [ _data/navigation.yml ](_data/navigation.yml).
-- Markdown pages are standard Jekyll pages with front matter and permalinks.
-
-Both local Jekyll serve/build and Docker jekyll build use the same Jekyll processing rules, so output structure and features are consistent.
-Create a file like `my-topic.markdown`:
-
-```md
----
-layout: page
-title: My Topic
----
-
-## Section title
-Your content here.
-```
-
-Then add it to `/_data/navigation.yml`.
-
-## GitHub alerts in markdown
-
-Write this in markdown:
-
-```md
-> [!NOTE]
-> This is a note.
-
-> [!TIP]
-> This is a tip.
-
-> [!WARNING]
-> This is a warning.
-```
-
-The site transforms those into GitHub-like `markdown-alert` blocks with icon, title, and colored left border.
-
-## Side subnavigation
-
-There are two ways to control left subnavigation.
-
-1. Global: edit `/_data/navigation.yml` under `side` and `children`.
-2. Per-page: set `subnav` in page front matter:
-
-```yaml
-subnav:
-  - title: Intro
-    url: /my-topic/#intro
-  - title: Examples
-    url: /my-topic/#examples
-```
-
-This lets each markdown page define its own subnavigation without editing HTML.
+- Primarni tlacitka renderuji maximalne 6 polozek na kartu.
+- button.color nastavuje barvu konkretniho tlacitka.
+- Pro ikony muzes pouzit icon (text/emoji) nebo icon_image (cesta k obrazku).
+- Trailing ikona u secondary_links je vzdy jednotna (external styl).
+- Externi odkaz se urci automaticky podle URL (obsahuje http:// nebo https://).
