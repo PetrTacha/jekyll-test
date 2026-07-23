@@ -17,15 +17,15 @@ sections:
             color: "#0f62fe"
             url: "https://example.com/development/dx/tda"
           - label: PRO
-            icon: P
+            icon: /assets/icons/pro-icon.png
             color: "#1f9d55"
             url: "https://example.com/development/dx/pro"
         secondary_links:
           - label: API docs
-            icon: "?"
+            icon: /assets/icons/int-icon.png
             url: "https://example.com/development/dx/docs"
           - label: Runbook
-            icon: R
+            icon: /assets/icons/acc-icon.png
             url: "https://example.com/development/dx/runbook"
 
       - name: GitHub
