@@ -10,7 +10,7 @@
   position: relative;
   display: flex;
   width: 25rem;
-  min-height: 5rem;
+  height: 100%;
   padding: 0.75rem 0.75rem 0.75rem 0.75rem;
   flex-direction: column;
   background: var(--docs-hub-surface);
@@ -215,7 +215,7 @@
 .docs-hub__primary-button-label {
   flex: 0 0 auto;
   display: block;
-  max-width: 5ch;
+  max-width: 10ch;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
