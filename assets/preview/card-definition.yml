@@ -1,0 +1,40 @@
+tool:
+  name: Kibana
+  description: Analytics and visualization platform
+  icon_image: /assets/logo/kibana.png # or emoji icon
+  border_color: "#F04E98"
+
+  # Main actions shown on the right side. Maximum rendered count is 2.
+  buttons:
+    - label: Prod
+      icon_image: /assets/icons/prod-icon.png # or emoji icon
+      color: "#F04E98"
+      text_color: "#1f2937" # optional button text + leading icon color
+      link_icon_color: "#be185d" # optional trailing link icon color
+      url: https://www.elastic.co/kibana
+      link_type: external # default is external
+      trailing_icon: external # external | arrow | none
+
+    - label: TDA
+      icon_image: /assets/icons/tda-icon.png # or emoji icon
+      color: "#F04E08"
+      text_color: "#111827"
+      link_icon_color: "#ea580c"
+      url: /monitoring/kibana/tda
+      link_type: internal
+      trailing_icon: arrow
+
+  # Additional links shown below the divider.
+  secondary_links:
+    - label: Dashboards
+      icon: DB
+      url: /monitoring/kibana/dashboards
+      link_type: internal
+      trailing_icon: arrow
+
+    - label: Official docs
+      icon: D
+      url: https://www.elastic.co/guide/en/kibana/current/index.html
+      # link_type omitted -> defaults to external
+      # trailing_icon omitted -> defaults to external
+  
