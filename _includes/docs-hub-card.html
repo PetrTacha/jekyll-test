@@ -14,9 +14,15 @@
 {% for secondary in card.secondary_links %}{{ secondary.label | default: secondary.name }} {% endfor %}
 {% endcapture %}
 
+{% assign primary_buttons_count = card.buttons | default: empty | size %}
+{% if primary_buttons_count > 2 %}
+{% assign primary_buttons_count = 2 %}
+{% endif %}
+
 <article
 class="docs-hub__card"
 data-docs-hub-card
+data-primary-count="{{ primary_buttons_count }}"
 data-search-text="{{ card_search_text | strip_newlines | replace: '  ', ' ' | downcase | escape }}"
 style="--docs-hub-accent: {{ card_accent }}; --docs-hub-card-border-color: {{ card_border_color | strip }};"
 >
@@ -43,7 +49,7 @@ style="--docs-hub-accent: {{ card_accent }}; --docs-hub-card-border-color: {{ ca
 </div>
 </div>
 
-{% if card.buttons and card.buttons.size > 0 %}
+{% if primary_buttons_count > 0 %}
 <div class="docs-hub__primary-buttons" aria-label="{{ card_title }} primary actions">
 {% for button in card.buttons limit: 2 %}
 {% assign button_label = button.label | default: button.name %}
@@ -178,9 +184,8 @@ style="--docs-hub-accent: {{ card_accent }}; --docs-hub-card-border-color: {{ ca
 </ul>
 {% endif %}
 
-{% assign buttons_count = card.buttons | default: empty | size %}
 {% assign secondary_count = card.secondary_links | default: empty | size %}
-{% if buttons_count == 0 and secondary_count == 0 %}
+{% if primary_buttons_count == 0 and secondary_count == 0 %}
 <p class="docs-hub__empty-card">No card actions configured.</p>
 {% endif %}
 </article>

@@ -29,7 +29,7 @@ sections:
             link_type: external
         secondary_links:
           - label: API docs
-            color: "red-300"
+            icon_image: /assets/icons/svg-light/ab-testing.svg
             action_color: "emerald-100"
             link_type: external
             color: "yellow-300"
@@ -68,7 +68,7 @@ sections:
             url: "/docs-hub/"
             link_type: internal
 
-      - name: GitLab
+      - name: IT service desk
         description: CI/CD and repository management for engineering teams.
         icon: GL
         icon_image: /assets/icons/gitlab-icon-circle.png
