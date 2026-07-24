@@ -1,0 +1,49 @@
+# Reference configuration for one docs-hub tool card.
+# Notes in comments include supported enums and defaults.
+
+tool:
+  name: GitHub
+  title: GitHub fallback title # optional, used only when name is missing
+  description: Source control and automation
+  icon: GH # optional text/emoji icon
+  icon_image: /assets/icons/github-icon-circle.png # optional image icon; takes precedence over icon
+
+  # Main actions displayed on the right side. Max rendered count is 2.
+  buttons:
+    - label: TDA
+      name: TDA fallback # optional fallback when label is missing
+      short_label: TDAWWW # optional short text used in button
+      icon: T # optional text/emoji icon
+      icon_image: /assets/icons/tda-icon-circle.png # optional image icon; takes precedence over icon
+      color: "#67e8f9" # button tint/background color
+      action_color: "#06b6d4" # unified strong color for icon + text + trailing link icon
+      text_color: "#0e7490" # optional explicit text color override
+      link_icon_color: "#0891b2" # optional explicit trailing link icon color override
+      url: /development/github/tda
+      link_type: internal # enum: external | internal, default: external
+
+    - label: PROD
+      icon_image: /assets/icons/prod-icon-circle.png
+      color: "#fca5a5"
+      action_color: "#ef4444"
+      url: https://example.com/development/github/prod
+      link_type: external # enum: external | internal
+
+  secondary_links:
+    - label: Repositories
+      name: Repos fallback # optional fallback when label is missing
+      icon: GH
+      icon_image: /assets/icons/repository-icon.png # optional image icon; takes precedence over icon
+      url: https://example.com/github/repositories
+      link_type: external # enum: external | internal, default: external
+
+    - label: Actions guide
+      icon: CI
+      url: /docs-hub/actions
+      link_type: internal # enum: external | internal
+
+# Behavioral notes:
+# - If button icon and icon_image are both missing, no main button icon is rendered.
+# - For main buttons, only the first 2 items are rendered.
+# - internal keeps same-tab behavior; external opens new tab.
+# - Trailing icon is derived from link_type (internal = arrow, external = external-link).

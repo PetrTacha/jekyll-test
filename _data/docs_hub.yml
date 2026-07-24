@@ -6,31 +6,40 @@ sections:
   - id: development
     title: Development
     description: Tools and platforms for building and shipping software.
-    icon: "</>"
-    accent: "#2563eb"
+    icon: "/assets/icons/apm-icon-circle.png"
     tools:
       - name: DX
         description: Developer experience
         icon_image: /assets/icons/apm-icon-circle.png
         icon: DX
+        border_color: "red-500"
         buttons:
           - label: TDA
             short_label: TDA
-            icon: /assets/icons/tda-icon.png
-            color: "#0f62fe"
-            action_color: "#0b2f7a"
+            icon: /assets/icons/tda-icon-circle.png
+            color: "blue-300"
+            action_color: "blue-500"
             url: "https://example.com/development/dx/tda"
+            link_type: internal
+          - label: PROD
+            icon_image: /assets/icons/prod-icon-circle.png
+            color: "red-300"
+            action_color: "red-700"
+            url: "https://example.com/development/github/pro"
             link_type: external
         secondary_links:
           - label: API docs
-            icon: /assets/icons/int-icon.png
-            url: "https://example.com/development/dx/docs"
+            color: "red-300"
+            action_color: "emerald-100"
             link_type: external
+            color: "yellow-300"
+            action_color: "yellow-100"
           - label: Runbook
             icon: /assets/icons/acc-icon.png
             url: "/incidents/start"
             link_type: internal
-            trailing_icon: arrow
+            color: "red-300"
+            action_color: "red-100"
 
       - name: GitHub
         description: Source control, reviews, and automation sda dsa dsa dsa d workflows.
@@ -38,13 +47,13 @@ sections:
         icon_image: /assets/icons/github-icon-circle.png
         buttons:
           - label: TDA
-            icon_image: /assets/icons/tda-icon-circle.png
+            icon_image: /assets/icons/half/tda-icon-circle-half.png
             color: "oklch(84.5% 0.143 164.978)"
             action_color: "#14532d"
             url: "https://example.com/development/github/tda"
             link_type: external
-          - label: PRO
-            icon_image: /assets/icons/prod-icon-circle.png
+          - label: PROD
+            icon_image: /assets/icons/half/prod-icon-circle-half.png
             color: "oklch(80.8% 0.114 19.571)"
             action_color: "#ef4444"
             url: "https://example.com/development/github/pro"
@@ -58,113 +67,113 @@ sections:
             icon: CI
             url: "/docs-hub/"
             link_type: internal
-            trailing_icon: arrow
 
       - name: GitLab
         description: CI/CD and repository management for engineering teams.
         icon: GL
         icon_image: /assets/icons/gitlab-icon-circle.png
-        secondary_links:
-          - label: Pipelines
-            icon: CI
-            url: "https://example.com/development/gitlab/pipelines"
-            link_type: external
-
-  - id: monitoring
-    title: Monitoring
-    description: Observability, metrics, and log analysis tools.
-    icon: "↗"
-    accent: "#16a34a"
-    tools:
-      - name: APM
-        description: Application performance dashboards and alert drill-down.
-        icon: APM
         buttons:
           - label: TDA
-            icon: T
-            color: "#0e9f6e"
-            url: "https://example.com/monitoring/apm/tda"
-            link_type: external
-        secondary_links:
-          - label: Alerts
-            icon: "!"
-            url: "/incidents/start"
+            short_label: TDA
+            icon: /assets/icons/tda-icon-circle.png
+            color: "oklch(84.5% 0.143 164.978)"
+            action_color: "#14532d"
+            url: "https://example.com/development/dx/tda"
             link_type: internal
-            trailing_icon: arrow
 
-      - name: SOI
-        description: Service health, synthetic checks, and real-time status.
-        icon: SOI
-        buttons:
-          - label: TDA
-            icon: T
-            color: "#10b981"
-            url: "https://example.com/monitoring/soi/tda"
-            link_type: external
-        secondary_links:
-          - label: Dashboard
-            icon: D
-            url: "https://example.com/monitoring/soi/dashboard"
-            link_type: external
+  # - id: monitoring
+  #   title: Monitoring
+  #   description: Observability, metrics, and log analysis tools.
+  #   icon: "↗"
+  #   accent: "#16a34a"
+  #   tools:
+  #     - name: APM
+  #       description: Application performance dashboards and alert drill-down.
+  #       icon: APM
+  #       buttons:
+  #         - label: TDA
+  #           color: "#0e9f6e"
+  #           url: "https://example.com/monitoring/apm/tda"
+  #           link_type: external
+  #       secondary_links:
+  #         - label: Alerts
+  #           icon: "!"
+  #           url: "/incidents/start"
+  #           link_type: internal
 
-      - name: Kibana
-        description: Log search and observability visualizations.
-        icon: K
-        buttons:
-          - label: PRO
-            icon: P
-            color: "#2563eb"
-            url: "https://example.com/monitoring/kibana/pro"
-            link_type: external
-          - label: TDA
-            icon: T
-            color: "#0891b2"
-            url: "https://example.com/monitoring/kibana/tda"
-            link_type: external
-        secondary_links:
-          - label: Saved searches
-            icon: S
-            url: "https://example.com/monitoring/kibana/saved-searches"
-            link_type: external
+  #     - name: SOI
+  #       description: Service health, synthetic checks, and real-time status.
+  #       icon: SOI
+  #       buttons:
+  #         - label: TDA
+  #           icon: T
+  #           color: "#10b981"
+  #           url: "https://example.com/monitoring/soi/tda"
+  #           link_type: external
+  #       secondary_links:
+  #         - label: Dashboard
+  #           icon: D
+  #           url: "https://example.com/monitoring/soi/dashboard"
+  #           link_type: external
 
-  - id: business-app
-    title: Business App
-    description: Enterprise applications and knowledge base.
-    icon: "▣"
-    accent: "#b7791f"
-    tools:
-      - name: Confluence
-        icon: C
-        buttons:
-          - label: page1
-            icon: "1"
-            color: "#1d4ed8"
-            url: "https://example.com/business/confluence/page1"
-          - label: page2
-            icon: "2"
-            color: "#2563eb"
-            url: "https://example.com/business/confluence/page2"
-          - label: page3
-            icon: "3"
-            color: "#3b82f6"
-            url: "https://example.com/business/confluence/page3"
-          - label: page4
-            icon: "4"
-            color: "#60a5fa"
-            url: "https://example.com/business/confluence/page4"
-        secondary_links:
-          - label: Space home
-            icon: C
-            url: "https://example.com/business/confluence/home"
+  #     - name: Kibana
+  #       description: Log search and observability visualizations.
+  #       icon: K
+  #       buttons:
+  #         - label: PRO
+  #           icon: P
+  #           color: "#2563eb"
+  #           url: "https://example.com/monitoring/kibana/pro"
+  #           link_type: external
+  #         - label: TDA
+  #           icon: T
+  #           color: "#0891b2"
+  #           url: "https://example.com/monitoring/kibana/tda"
+  #           link_type: external
+  #       secondary_links:
+  #         - label: Saved searches
+  #           icon: S
+  #           url: "https://example.com/monitoring/kibana/saved-searches"
+  #           link_type: external
 
-      - name: SAP
-        icon: SAP
-        buttons:
-          - label: page
-            icon: P
-            color: "#0284c7"
-            url: "https://example.com/business/sap/page"
-        secondary_links:
-          - label: Support
-            icon: S
-            url: "https://example.com/business/sap/support"
+  # - id: business-app
+  #   title: Business App
+  #   description: Enterprise applications and knowledge base.
+  #   icon: "▣"
+  #   accent: "#b7791f"
+  #   tools:
+  #     - name: Confluence
+  #       icon: C
+  #       buttons:
+  #         - label: page1
+  #           icon: "1"
+  #           color: "#1d4ed8"
+  #           url: "https://example.com/business/confluence/page1"
+  #         - label: page2
+  #           icon: "2"
+  #           color: "#2563eb"
+  #           url: "https://example.com/business/confluence/page2"
+  #         - label: page3
+  #           icon: "3"
+  #           color: "#3b82f6"
+  #           url: "https://example.com/business/confluence/page3"
+  #         - label: page4
+  #           icon: "4"
+  #           color: "#60a5fa"
+  #           url: "https://example.com/business/confluence/page4"
+  #       secondary_links:
+  #         - label: Space home
+  #           icon: C
+  #           url: "https://example.com/business/confluence/home"
+
+  #     - name: SAP
+  #       icon: SAP
+  #       buttons:
+  #         - label: page
+  #           icon: P
+  #           color: "#0284c7"
+  #           url: "https://example.com/business/sap/page"
+  #       secondary_links:
+  #         - label: Support
+  #           icon: S
+  #           url: "https://example.com/business/sap/support"

@@ -13,7 +13,6 @@ tool:
       link_icon_color: "#be185d" # optional trailing link icon color
       url: https://www.elastic.co/kibana
       link_type: external # default is external
-      trailing_icon: external # external | arrow | none
 
     - label: TDA
       icon_image: /assets/icons/tda-icon.png # or emoji icon
@@ -22,7 +21,6 @@ tool:
       link_icon_color: "#ea580c"
       url: /monitoring/kibana/tda
       link_type: internal
-      trailing_icon: arrow
 
   # Additional links shown below the divider.
   secondary_links:
@@ -30,11 +28,9 @@ tool:
       icon: DB
       url: /monitoring/kibana/dashboards
       link_type: internal
-      trailing_icon: arrow
 
     - label: Official docs
       icon: D
       url: https://www.elastic.co/guide/en/kibana/current/index.html
       # link_type omitted -> defaults to external
-      # trailing_icon omitted -> defaults to external
   

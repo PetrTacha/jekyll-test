@@ -59,12 +59,13 @@ hidden
 <div class="docs-hub__sections">
 {% for section in hub.sections %}
 {% assign section_id = section.id | default: section.title | slugify %}
+{% capture section_accent_color %}{% include resolve-color-token.html value=section.accent default='#2563eb' %}{% endcapture %}
 
 <section
 class="docs-hub__section"
 id="docs-hub-{{ section_id }}"
 aria-labelledby="docs-hub-heading-{{ section_id }}"
-style="--docs-hub-accent: {{ section.accent | default: '#2563eb' }};"
+style="--docs-hub-accent: {{ section_accent_color | strip }};"
 data-docs-hub-section
 >
 <header class="docs-hub__section-header">

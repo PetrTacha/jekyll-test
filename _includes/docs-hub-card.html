@@ -1,7 +1,10 @@
 {% assign card = include.card | default: include.tool | default: include.data %}
 {% assign card_title = card.name | default: card.title %}
 {% assign card_description = card.description | default: '' %}
-{% assign card_accent = include.accent | default: include.section.accent | default: '#2563eb' %}
+{% assign card_accent_raw = include.accent | default: include.section.accent | default: '#2563eb' %}
+{% capture card_accent %}{% include resolve-color-token.html value=card_accent_raw default='#2563eb' %}{% endcapture %}
+{% assign card_border_color_raw = card.border_color | default: card_accent_raw %}
+{% capture card_border_color %}{% include resolve-color-token.html value=card_border_color_raw default=card_accent %}{% endcapture %}
 
 {% capture card_search_text %}
 {{ include.search_text }}
@@ -15,7 +18,7 @@
 class="docs-hub__card"
 data-docs-hub-card
 data-search-text="{{ card_search_text | strip_newlines | replace: '  ', ' ' | downcase | escape }}"
-style="--docs-hub-accent: {{ card_accent }};"
+style="--docs-hub-accent: {{ card_accent }}; --docs-hub-card-border-color: {{ card_border_color | strip }};"
 >
 <div class="docs-hub__card-main">
 <div class="docs-hub__card-header">
@@ -59,10 +62,6 @@ style="--docs-hub-accent: {{ card_accent }};"
 {% elsif button_url contains "://" %}
 {% assign button_external = true %}
 {% endif %}
-{% assign button_trailing_icon = button.trailing_icon | default: '' | downcase | strip %}
-{% if button_trailing_icon == '' %}
-{% assign button_trailing_icon = 'external' %}
-{% endif %}
 {% capture button_environment_probe %}{{ button_label }} {{ button.icon }} {{ button.icon_image }} {{ button_url }}{% endcapture %}
 {% assign button_environment_probe = button_environment_probe | downcase %}
 {% assign button_environment = '' %}
@@ -75,11 +74,15 @@ style="--docs-hub-accent: {{ card_accent }};"
 {% elsif button_environment_probe contains 'tda' %}
 {% assign button_environment = 'tda' %}
 {% endif %}
+{% capture button_color_value %}{% include resolve-color-token.html value=button.color default=card_accent %}{% endcapture %}
+{% capture button_action_color_value %}{% include resolve-color-token.html value=button.action_color %}{% endcapture %}
+{% capture button_text_color_value %}{% include resolve-color-token.html value=button.text_color %}{% endcapture %}
+{% capture button_link_icon_color_value %}{% include resolve-color-token.html value=button.link_icon_color %}{% endcapture %}
 {% capture button_style_vars %}
---primary-button-color: {{ button.color | default: card_accent | default: '#2563eb' }};
-{% if button.action_color %}--primary-button-content-color: {{ button.action_color }};{% endif %}
-{% if button.text_color %}--primary-button-text: {{ button.text_color }};{% endif %}
-{% if button.link_icon_color %}--primary-button-link-icon: {{ button.link_icon_color }};{% endif %}
+--primary-button-color: {{ button_color_value | strip }};
+{% if button.action_color %}--primary-button-content-color: {{ button_action_color_value | strip }};{% endif %}
+{% if button.text_color %}--primary-button-text: {{ button_text_color_value | strip }};{% endif %}
+{% if button.link_icon_color %}--primary-button-link-icon: {{ button_link_icon_color_value | strip }};{% endif %}
 {% endcapture %}
 <a class="docs-hub__primary-button"{% if button_environment != '' %} data-env="{{ button_environment }}"{% endif %} style="{{ button_style_vars | strip_newlines | strip }}" href="{% if button_external %}{{ button_url }}{% else %}{{ button_url | relative_url }}{% endif %}"{% if button_external %} target="_blank" rel="noopener noreferrer"{% endif %}>
 <span class="docs-hub__primary-button-main">
@@ -98,14 +101,13 @@ style="--docs-hub-accent: {{ card_accent }};"
 </span>
 <span class="docs-hub__primary-button-label">{{ button_short_label }}</span>
 </span>
-{% if button_trailing_icon == 'arrow' or button_trailing_icon == 'internal' %}
+{% if button_link_type == 'internal' %}
 <span class="docs-hub__primary-button-link-icon-wrap" aria-hidden="true">
 <svg class="docs-hub__trailing-icon docs-hub__trailing-icon--arrow docs-hub__primary-button-link-icon" viewBox="0 0 24 24" focusable="false">
 <path d="M5 12h14"></path>
 <path d="m13 6 6 6-6 6"></path>
 </svg>
 </span>
-{% elsif button_trailing_icon == 'none' %}
 {% else %}
 <span class="docs-hub__primary-button-link-icon-wrap" aria-hidden="true">
 <svg class="docs-hub__trailing-icon docs-hub__trailing-icon--external docs-hub__primary-button-link-icon" viewBox="0 0 24 24" focusable="false">
@@ -138,10 +140,6 @@ style="--docs-hub-accent: {{ card_accent }};"
 {% elsif secondary_url contains "://" %}
 {% assign secondary_external = true %}
 {% endif %}
-{% assign secondary_trailing_icon = secondary.trailing_icon | default: '' | downcase | strip %}
-{% if secondary_trailing_icon == '' %}
-{% assign secondary_trailing_icon = 'external' %}
-{% endif %}
 <li>
 {% capture secondary_environment_probe %}{{ secondary_label }} {{ secondary.icon }} {{ secondary.icon_image }} {{ secondary_url }}{% endcapture %}
 {% assign secondary_environment_probe = secondary_environment_probe | downcase %}
@@ -155,7 +153,7 @@ style="--docs-hub-accent: {{ card_accent }};"
 {% elsif secondary_environment_probe contains 'tda' %}
 {% assign secondary_environment = 'tda' %}
 {% endif %}
-<a class="docs-hub__secondary-link"{% if secondary_environment != '' %} data-env="{{ secondary_environment }}"{% endif %} href="{% if secondary_external %}{{ secondary_url }}{% else %}{{ secondary_url | relative_url }}{% endif %}"{% if secondary_external %} target="_blank" rel="noopener noreferrer"{% endif %}>
+<a class="docs-hub__secondary-link" href="{% if secondary_external %}{{ secondary_url }}{% else %}{{ secondary_url | relative_url }}{% endif %}"{% if secondary_external %} target="_blank" rel="noopener noreferrer"{% endif %}>
 <span class="docs-hub__secondary-icon" aria-hidden="true">
 {% if secondary.icon_image %}
 <img class="docs-hub__tiny-logo" src="{{ secondary.icon_image | relative_url }}" alt="" loading="lazy" decoding="async">
@@ -170,12 +168,11 @@ style="--docs-hub-accent: {{ card_accent }};"
 {% endif %}
 </span>
 <span class="docs-hub__secondary-label">{{ secondary_label }}</span>
-{% if secondary_trailing_icon == 'arrow' or secondary_trailing_icon == 'internal' %}
+{% if secondary_link_type == 'internal' %}
 <svg class="docs-hub__trailing-icon docs-hub__trailing-icon--arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
 <path d="M5 12h14"></path>
 <path d="m13 6 6 6-6 6"></path>
 </svg>
-{% elsif secondary_trailing_icon == 'none' %}
 {% else %}
 <svg class="docs-hub__trailing-icon docs-hub__trailing-icon--external" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
 <path d="M14 5h5v5"></path>

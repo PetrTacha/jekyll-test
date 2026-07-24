@@ -1,0 +1,12 @@
+{%- assign raw = include.value | default: '' -%}
+{%- assign token = raw | strip -%}
+
+{%- if token == '' -%}
+{{ include.default }}
+{%- elsif token contains 'var(' or token contains '#' or token contains 'rgb(' or token contains 'hsl(' or token contains 'oklch(' or token contains 'oklab(' or token contains 'color(' -%}
+{{ token }}
+{%- elsif token contains '-' -%}
+var(--tw-{{ token | downcase }})
+{%- else -%}
+{{ token }}
+{%- endif -%}
