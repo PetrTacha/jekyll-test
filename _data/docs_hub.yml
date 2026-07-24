@@ -10,59 +10,65 @@ sections:
     accent: "#2563eb"
     tools:
       - name: DX
+        description: Developer experience
+        icon_image: /assets/icons/apm-icon-circle.png
         icon: DX
         buttons:
           - label: TDA
+            short_label: TDA
             icon: /assets/icons/tda-icon.png
             color: "#0f62fe"
+            action_color: "#0b2f7a"
             url: "https://example.com/development/dx/tda"
-          - label: PRO
-            icon: /assets/icons/pro-icon.png
-            color: "#1f9d55"
-            url: "https://example.com/development/dx/pro"
+            link_type: external
         secondary_links:
           - label: API docs
             icon: /assets/icons/int-icon.png
             url: "https://example.com/development/dx/docs"
+            link_type: external
           - label: Runbook
             icon: /assets/icons/acc-icon.png
-            url: "https://example.com/development/dx/runbook"
+            url: "/incidents/start"
+            link_type: internal
+            trailing_icon: arrow
 
       - name: GitHub
+        description: Source control, reviews, and automation sda dsa dsa dsa d workflows.
         icon: GH
-        icon_image: /assets/logo/github-logo.png
+        icon_image: /assets/icons/github-icon-circle.png
         buttons:
           - label: TDA
-            icon_image: /assets/logo/github-logo.png
-            color: "#111827"
+            icon_image: /assets/icons/tda-icon-circle.png
+            color: "oklch(84.5% 0.143 164.978)"
+            action_color: "#14532d"
             url: "https://example.com/development/github/tda"
+            link_type: external
           - label: PRO
-            icon_image: /assets/logo/github-logo.png
-            color: "#374151"
+            icon_image: /assets/icons/prod-icon-circle.png
+            color: "oklch(80.8% 0.114 19.571)"
+            action_color: "#ef4444"
             url: "https://example.com/development/github/pro"
+            link_type: external
         secondary_links:
           - label: Repositories
             icon: GH
             url: "https://example.com/development/github/repositories"
+            link_type: external
           - label: Actions guide
             icon: CI
-            url: "https://example.com/development/github/actions-guide"
+            url: "/docs-hub/"
+            link_type: internal
+            trailing_icon: arrow
 
       - name: GitLab
+        description: CI/CD and repository management for engineering teams.
         icon: GL
-        buttons:
-          - label: TDA
-            icon: T
-            color: "#fc6d26"
-            url: "https://example.com/development/gitlab/tda"
-          - label: PRO
-            icon: P
-            color: "#f97316"
-            url: "https://example.com/development/gitlab/pro"
+        icon_image: /assets/icons/gitlab-icon-circle.png
         secondary_links:
           - label: Pipelines
             icon: CI
             url: "https://example.com/development/gitlab/pipelines"
+            link_type: external
 
   - id: monitoring
     title: Monitoring
@@ -71,44 +77,55 @@ sections:
     accent: "#16a34a"
     tools:
       - name: APM
+        description: Application performance dashboards and alert drill-down.
         icon: APM
         buttons:
           - label: TDA
             icon: T
             color: "#0e9f6e"
             url: "https://example.com/monitoring/apm/tda"
+            link_type: external
         secondary_links:
           - label: Alerts
             icon: "!"
-            url: "https://example.com/monitoring/apm/alerts"
+            url: "/incidents/start"
+            link_type: internal
+            trailing_icon: arrow
 
       - name: SOI
+        description: Service health, synthetic checks, and real-time status.
         icon: SOI
         buttons:
           - label: TDA
             icon: T
             color: "#10b981"
             url: "https://example.com/monitoring/soi/tda"
+            link_type: external
         secondary_links:
           - label: Dashboard
             icon: D
             url: "https://example.com/monitoring/soi/dashboard"
+            link_type: external
 
       - name: Kibana
+        description: Log search and observability visualizations.
         icon: K
         buttons:
           - label: PRO
             icon: P
             color: "#2563eb"
             url: "https://example.com/monitoring/kibana/pro"
+            link_type: external
           - label: TDA
             icon: T
             color: "#0891b2"
             url: "https://example.com/monitoring/kibana/tda"
+            link_type: external
         secondary_links:
           - label: Saved searches
             icon: S
             url: "https://example.com/monitoring/kibana/saved-searches"
+            link_type: external
 
   - id: business-app
     title: Business App

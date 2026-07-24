@@ -1,13 +1,14 @@
 {% assign card = include.card | default: include.tool | default: include.data %}
 {% assign card_title = card.name | default: card.title %}
+{% assign card_description = card.description | default: '' %}
 {% assign card_accent = include.accent | default: include.section.accent | default: '#2563eb' %}
 
 {% capture card_search_text %}
 {{ include.search_text }}
 {% if include.section %}{{ include.section.title }} {{ include.section.description }}{% endif %}
 {{ card_title }}
-{% for button in card.buttons %}{{ button.label }} {% endfor %}
-{% for secondary in card.secondary_links %}{{ secondary.label }} {% endfor %}
+{% for button in card.buttons %}{{ button.label | default: button.name }} {% endfor %}
+{% for secondary in card.secondary_links %}{{ secondary.label | default: secondary.name }} {% endfor %}
 {% endcapture %}
 
 <article
@@ -16,6 +17,7 @@ data-docs-hub-card
 data-search-text="{{ card_search_text | strip_newlines | replace: '  ', ' ' | downcase | escape }}"
 style="--docs-hub-accent: {{ card_accent }};"
 >
+<div class="docs-hub__card-main">
 <div class="docs-hub__card-header">
 <span class="docs-hub__tool-icon" aria-hidden="true">
 {% if card.icon_image %}
@@ -30,21 +32,57 @@ style="--docs-hub-accent: {{ card_accent }};"
 {% endif %}
 {% endif %}
 </span>
+<div class="docs-hub__card-text">
 <h3 class="docs-hub__card-title">{{ card_title }}</h3>
+{% if card_description != '' %}
+<p class="docs-hub__card-description">{{ card_description }}</p>
+{% endif %}
+</div>
 </div>
 
 {% if card.buttons and card.buttons.size > 0 %}
 <div class="docs-hub__primary-buttons" aria-label="{{ card_title }} primary actions">
-{% for button in card.buttons limit: 6 %}
+{% for button in card.buttons limit: 2 %}
+{% assign button_label = button.label | default: button.name %}
+{% assign button_short_label = button.short_label | default: button_label | strip %}
+{% assign button_short_label = button_short_label | slice: 0, 5 %}
 {% assign button_url = button.url | strip %}
 {% if button_url contains "](" %}
 {% assign button_url = button_url | split: "](" | last | split: ")" | first %}
 {% endif %}
+{% assign button_link_type = button.link_type | default: 'external' | downcase | strip %}
 {% assign button_external = false %}
-{% if button_url contains "://" %}
+{% if button_link_type == 'external' %}
+{% assign button_external = true %}
+{% elsif button_link_type == 'internal' %}
+{% assign button_external = false %}
+{% elsif button_url contains "://" %}
 {% assign button_external = true %}
 {% endif %}
-<a class="docs-hub__primary-button" style="--primary-button-color: {{ button.color | default: card_accent | default: '#2563eb' }};" href="{% if button_external %}{{ button_url }}{% else %}{{ button_url | relative_url }}{% endif %}"{% if button_external %} target="_blank" rel="noopener noreferrer"{% endif %}>
+{% assign button_trailing_icon = button.trailing_icon | default: '' | downcase | strip %}
+{% if button_trailing_icon == '' %}
+{% assign button_trailing_icon = 'external' %}
+{% endif %}
+{% capture button_environment_probe %}{{ button_label }} {{ button.icon }} {{ button.icon_image }} {{ button_url }}{% endcapture %}
+{% assign button_environment_probe = button_environment_probe | downcase %}
+{% assign button_environment = '' %}
+{% if button_environment_probe contains 'pro' %}
+{% assign button_environment = 'pro' %}
+{% elsif button_environment_probe contains 'acc' %}
+{% assign button_environment = 'acc' %}
+{% elsif button_environment_probe contains 'int' %}
+{% assign button_environment = 'int' %}
+{% elsif button_environment_probe contains 'tda' %}
+{% assign button_environment = 'tda' %}
+{% endif %}
+{% capture button_style_vars %}
+--primary-button-color: {{ button.color | default: card_accent | default: '#2563eb' }};
+{% if button.action_color %}--primary-button-content-color: {{ button.action_color }};{% endif %}
+{% if button.text_color %}--primary-button-text: {{ button.text_color }};{% endif %}
+{% if button.link_icon_color %}--primary-button-link-icon: {{ button.link_icon_color }};{% endif %}
+{% endcapture %}
+<a class="docs-hub__primary-button"{% if button_environment != '' %} data-env="{{ button_environment }}"{% endif %} style="{{ button_style_vars | strip_newlines | strip }}" href="{% if button_external %}{{ button_url }}{% else %}{{ button_url | relative_url }}{% endif %}"{% if button_external %} target="_blank" rel="noopener noreferrer"{% endif %}>
+<span class="docs-hub__primary-button-main">
 <span class="docs-hub__primary-button-icon" aria-hidden="true">
 {% if button.icon_image %}
 <img class="docs-hub__tiny-logo" src="{{ button.icon_image | relative_url }}" alt="" loading="lazy" decoding="async">
@@ -58,25 +96,66 @@ style="--docs-hub-accent: {{ card_accent }};"
 {% endif %}
 {% endif %}
 </span>
-<span class="docs-hub__primary-button-label">{{ button.label }}</span>
+<span class="docs-hub__primary-button-label">{{ button_short_label }}</span>
+</span>
+{% if button_trailing_icon == 'arrow' or button_trailing_icon == 'internal' %}
+<span class="docs-hub__primary-button-link-icon-wrap" aria-hidden="true">
+<svg class="docs-hub__trailing-icon docs-hub__trailing-icon--arrow docs-hub__primary-button-link-icon" viewBox="0 0 24 24" focusable="false">
+<path d="M5 12h14"></path>
+<path d="m13 6 6 6-6 6"></path>
+</svg>
+</span>
+{% elsif button_trailing_icon == 'none' %}
+{% else %}
+<span class="docs-hub__primary-button-link-icon-wrap" aria-hidden="true">
+<svg class="docs-hub__trailing-icon docs-hub__trailing-icon--external docs-hub__primary-button-link-icon" viewBox="0 0 24 24" focusable="false">
+<path d="M14 5h5v5"></path>
+<path d="M10 14 19 5"></path>
+<path d="M19 13v6H5V5h6"></path>
+</svg>
+</span>
+{% endif %}
 </a>
 {% endfor %}
 </div>
 {% endif %}
+</div>
 
 {% if card.secondary_links and card.secondary_links.size > 0 %}
 <ul class="docs-hub__secondary-links" aria-label="{{ card_title }} secondary links">
 {% for secondary in card.secondary_links %}
+{% assign secondary_label = secondary.label | default: secondary.name %}
 {% assign secondary_url = secondary.url | strip %}
 {% if secondary_url contains "](" %}
 {% assign secondary_url = secondary_url | split: "](" | last | split: ")" | first %}
 {% endif %}
+{% assign secondary_link_type = secondary.link_type | default: 'external' | downcase | strip %}
 {% assign secondary_external = false %}
-{% if secondary_url contains "://" %}
+{% if secondary_link_type == 'external' %}
+{% assign secondary_external = true %}
+{% elsif secondary_link_type == 'internal' %}
+{% assign secondary_external = false %}
+{% elsif secondary_url contains "://" %}
 {% assign secondary_external = true %}
 {% endif %}
+{% assign secondary_trailing_icon = secondary.trailing_icon | default: '' | downcase | strip %}
+{% if secondary_trailing_icon == '' %}
+{% assign secondary_trailing_icon = 'external' %}
+{% endif %}
 <li>
-<a class="docs-hub__secondary-link" href="{% if secondary_external %}{{ secondary_url }}{% else %}{{ secondary_url | relative_url }}{% endif %}"{% if secondary_external %} target="_blank" rel="noopener noreferrer"{% endif %}>
+{% capture secondary_environment_probe %}{{ secondary_label }} {{ secondary.icon }} {{ secondary.icon_image }} {{ secondary_url }}{% endcapture %}
+{% assign secondary_environment_probe = secondary_environment_probe | downcase %}
+{% assign secondary_environment = '' %}
+{% if secondary_environment_probe contains 'pro' %}
+{% assign secondary_environment = 'pro' %}
+{% elsif secondary_environment_probe contains 'acc' %}
+{% assign secondary_environment = 'acc' %}
+{% elsif secondary_environment_probe contains 'int' %}
+{% assign secondary_environment = 'int' %}
+{% elsif secondary_environment_probe contains 'tda' %}
+{% assign secondary_environment = 'tda' %}
+{% endif %}
+<a class="docs-hub__secondary-link"{% if secondary_environment != '' %} data-env="{{ secondary_environment }}"{% endif %} href="{% if secondary_external %}{{ secondary_url }}{% else %}{{ secondary_url | relative_url }}{% endif %}"{% if secondary_external %} target="_blank" rel="noopener noreferrer"{% endif %}>
 <span class="docs-hub__secondary-icon" aria-hidden="true">
 {% if secondary.icon_image %}
 <img class="docs-hub__tiny-logo" src="{{ secondary.icon_image | relative_url }}" alt="" loading="lazy" decoding="async">
@@ -90,12 +169,20 @@ style="--docs-hub-accent: {{ card_accent }};"
 {% endif %}
 {% endif %}
 </span>
-<span class="docs-hub__secondary-label">{{ secondary.label }}</span>
-<svg class="docs-hub__trailing-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+<span class="docs-hub__secondary-label">{{ secondary_label }}</span>
+{% if secondary_trailing_icon == 'arrow' or secondary_trailing_icon == 'internal' %}
+<svg class="docs-hub__trailing-icon docs-hub__trailing-icon--arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+<path d="M5 12h14"></path>
+<path d="m13 6 6 6-6 6"></path>
+</svg>
+{% elsif secondary_trailing_icon == 'none' %}
+{% else %}
+<svg class="docs-hub__trailing-icon docs-hub__trailing-icon--external" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
 <path d="M14 5h5v5"></path>
 <path d="M10 14 19 5"></path>
 <path d="M19 13v6H5V5h6"></path>
 </svg>
+{% endif %}
 </a>
 </li>
 {% endfor %}
