@@ -90,12 +90,14 @@ style="--docs-hub-accent: {{ card_accent }}; --docs-hub-card-border-color: {{ ca
 {% if button.icon_image %}
 <img class="docs-hub__tiny-logo" src="{{ button.icon_image | relative_url }}" alt="" loading="lazy" decoding="async">
 {% else %}
-{% assign button_icon_value = button.icon | default: "*" %}
+{% assign button_icon_value = button.icon | default: "" | strip %}
+{% if button_icon_value != "" %}
 {% assign button_icon_lower = button_icon_value | downcase %}
 {% if button_icon_lower contains ".png" or button_icon_lower contains ".svg" or button_icon_lower contains ".jpg" or button_icon_lower contains ".jpeg" or button_icon_lower contains ".webp" %}
 <img class="docs-hub__tiny-logo" src="{{ button_icon_value | relative_url }}" alt="" loading="lazy" decoding="async">
 {% else %}
 {{ button_icon_value | escape }}
+{% endif %}
 {% endif %}
 {% endif %}
 </span>
@@ -141,29 +143,19 @@ style="--docs-hub-accent: {{ card_accent }}; --docs-hub-card-border-color: {{ ca
 {% assign secondary_external = true %}
 {% endif %}
 <li>
-{% capture secondary_environment_probe %}{{ secondary_label }} {{ secondary.icon }} {{ secondary.icon_image }} {{ secondary_url }}{% endcapture %}
-{% assign secondary_environment_probe = secondary_environment_probe | downcase %}
-{% assign secondary_environment = '' %}
-{% if secondary_environment_probe contains 'pro' %}
-{% assign secondary_environment = 'pro' %}
-{% elsif secondary_environment_probe contains 'acc' %}
-{% assign secondary_environment = 'acc' %}
-{% elsif secondary_environment_probe contains 'int' %}
-{% assign secondary_environment = 'int' %}
-{% elsif secondary_environment_probe contains 'tda' %}
-{% assign secondary_environment = 'tda' %}
-{% endif %}
 <a class="docs-hub__secondary-link" href="{% if secondary_external %}{{ secondary_url }}{% else %}{{ secondary_url | relative_url }}{% endif %}"{% if secondary_external %} target="_blank" rel="noopener noreferrer"{% endif %}>
 <span class="docs-hub__secondary-icon" aria-hidden="true">
 {% if secondary.icon_image %}
 <img class="docs-hub__tiny-logo" src="{{ secondary.icon_image | relative_url }}" alt="" loading="lazy" decoding="async">
 {% else %}
-{% assign secondary_icon_value = secondary.icon | default: ">" %}
+{% assign secondary_icon_value = secondary.icon | default: "" | strip %}
+{% if secondary_icon_value != "" %}
 {% assign secondary_icon_lower = secondary_icon_value | downcase %}
 {% if secondary_icon_lower contains ".png" or secondary_icon_lower contains ".svg" or secondary_icon_lower contains ".jpg" or secondary_icon_lower contains ".jpeg" or secondary_icon_lower contains ".webp" %}
 <img class="docs-hub__tiny-logo" src="{{ secondary_icon_value | relative_url }}" alt="" loading="lazy" decoding="async">
 {% else %}
 {{ secondary_icon_value | escape }}
+{% endif %}
 {% endif %}
 {% endif %}
 </span>
