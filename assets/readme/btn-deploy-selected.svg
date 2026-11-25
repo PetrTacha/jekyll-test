@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="130" viewBox="0 0 400 130">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#16a34a"/><stop offset="1" stop-color="#0f8a63"/></linearGradient></defs>
+  <rect width="400" height="130" rx="14" fill="url(#g)"/>
+  <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M54 32 L78 45 V73 L54 86 L30 73 V45 Z M30 45 L54 58 L78 45 M54 58 V86"/></g>
+  <text x="100" y="52" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-size="22" font-weight="700" fill="#fff">Deploy Selected Apps</text>
+  <text x="100" y="80" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-size="15" fill="#fff" fill-opacity=".85">Deploy only selected</text>
+  <text x="100" y="100" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-size="15" fill="#fff" fill-opacity=".85">applications.</text>
+  <path d="M368 52 L380 65 L368 78" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,100 +1,31 @@
-# Jekyll Dokumentace - Docker Spusteni
+<p align="center">
+  <img src="assets/header.svg" alt="NAS Apps – Manage and deploy our applications with ease" width="100%">
+</p>
 
-Tento projekt je pripraveny pro lokalni beh pres Docker.
+<p align="center">
+  <a href="../../actions/workflows/deploy-all.yml"><img src="assets/btn-deploy-all.svg" alt="Deploy All NAS Apps" width="32%"></a>
+  <a href="../../actions/workflows/deploy-selected.yml"><img src="assets/btn-deploy-selected.svg" alt="Deploy Selected Apps" width="32%"></a>
+  <a href="../../actions/workflows/status.yml"><img src="assets/btn-status.svg" alt="Application Status" width="32%"></a>
+</p>
 
-docker run --rm -it -p 4000:4000 -p 35729:35729 -v "D:/Work/CSOB/jekyll-test:/srv/jekyll" jekyll/jekyll:4 sh -c "bundle install; bundle exec jekyll serve --host 0.0.0.0 --livereload --livereload-port 35729 --force_polling"
+---
 
-## Pozadavky
+<img src="assets/containers.svg" alt="" width="220" align="right">
 
-- Nainstalovany Docker Desktop
-- Volny port 4000
+## ℹ️ About
 
-## Spusteni lokalniho serveru
+This repository contains tools and workflows for managing our NAS applications.
+Use the buttons above to deploy applications or check their status.
 
-1. Otevri terminal v korenu repozitare.
-2. Spust server timto prikazem (watch + live reload):
+| Action | What it does |
+| --- | --- |
+| 🚀 **Deploy All NAS Apps** | Deploys every application in this repository whose name starts with `nase-`. |
+| 📦 **Deploy Selected Apps** | Deploys only the applications you list when running the workflow. |
+| 📈 **Application Status** | Prints the deployment and runtime status of the applications. |
 
-```powershell
-docker run --rm -it -p 4000:4000 -p 35729:35729 -v "D:/Work/CSOB/jekyll-test:/srv/jekyll" jekyll/jekyll:4 sh -c "bundle install; bundle exec jekyll serve --host 0.0.0.0 --livereload --force_polling"
-```
+> [!TIP]
+> Open a workflow and click **Run workflow** to start it.
 
-3. Otevri stranku v prohlizeci:
+### 🔗 Quick Links
 
-```text
-http://localhost:4000
-```
-
-Jekyll serve automaticky sleduje zmeny souboru a pregeneruje stranku.
-Volba --livereload navic posle refresh do browseru automaticky.
-
-## Alternativa s aktualni slozkou
-
-Pokud jsi uz v koreni projektu, muzes pouzit i variantu s aktualni cestou:
-
-```powershell
-docker run --rm -it -p 4000:4000 -p 35729:35729 -v "${PWD}:/srv/jekyll" jekyll/jekyll:4 sh -c "bundle install; bundle exec jekyll serve --host 0.0.0.0 --livereload --force_polling"
-```
-
-## Jednorazovy build bez serveru
-
-```powershell
-docker run --rm -v "D:/Work/CSOB/jekyll-test:/srv/jekyll" jekyll/jekyll:4 sh -c "bundle install; bundle exec jekyll build"
-```
-
-Vystup se vygeneruje do slozky _site.
-
-## Zastaveni serveru
-
-V terminalu stiskni Ctrl+C.
-
-## Nejbeznejsi problemy
-
-- Chyba obsazeneho portu 4000:
-  zmen mapovani treba na -p 4001:4000 a otevri http://localhost:4001.
-- Live reload nereaguje:
-  over, ze mapujes i port 35729 a ze mas v prikazu --livereload.
-- Prvni spusteni trva dele:
-  Docker stahuje image a bundler instaluje zavislosti.
-
-## Konfigurace karet (novy model)
-
-Karta ma 3 vrstvy pod sebou:
-
-1. Hlavicka: nazev + icon nebo icon_image
-2. Primarni tlacitka: pole buttons (0 az 6)
-3. Vedlejsi odkazy: pole secondary_links (0 az N)
-
-Minimalni priklad jedne karty v _data/docs_hub.yml:
-
-```yaml
-tools:
-  - name: GitHub
-    icon: GH
-    icon_image: /assets/logo/github-logo.png
-    buttons:
-      - label: TDA
-        icon_image: /assets/logo/github-logo.png
-        color: "#111827"
-        url: "https://example.com/development/github/tda"
-        external: true
-      - label: PRO
-        icon: P
-        color: "#374151"
-        url: "https://example.com/development/github/pro"
-        external: true
-    secondary_links:
-      - label: Repositories
-        icon: GH
-        url: "https://example.com/development/github/repositories"
-      - label: Actions guide
-        icon: CI
-        url: "https://example.com/development/github/actions-guide"
-```
-
-Poznamky:
-
-- Primarni tlacitka renderuji maximalne 6 polozek na kartu.
-- button.color nastavuje barvu konkretniho tlacitka.
-- Pro ikony muzes pouzit icon (text/emoji) nebo icon_image (cesta k obrazku).
-- Trailing ikona u secondary_links je vzdy jednotna (external styl).
-- Externi odkaz se urci automaticky podle URL (obsahuje http:// nebo https://).
+📖 [Documentation](docs/) &nbsp;|&nbsp; 🐛 [Issues](../../issues) &nbsp;|&nbsp; ⚙️ [Configuration](config/)
