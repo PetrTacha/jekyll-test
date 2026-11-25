@@ -1,31 +1,49 @@
 <p align="center">
-  <img src="assets/readme/header.svg" alt="NAS Apps – Manage and deploy our applications with ease" width="100%">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/readme/f5-header-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="assets/readme/f5-header-light.svg">
+    <img src="assets/readme/f5-header-light.svg" alt="F5SEAL – Deploy configuration" width="360">
+  </picture>
 </p>
 
-<p align="center">
-  <a href="../../actions/workflows/deploy-all.yml"><img src="assets/readme/btn-deploy-all.svg" alt="Deploy All NAS Apps" width="32%"></a>
-  <a href="../../actions/workflows/deploy-selected.yml"><img src="assets/readme/btn-deploy-selected.svg" alt="Deploy Selected Apps" width="32%"></a>
-  <a href="../../actions/workflows/status.yml"><img src="assets/readme/btn-status.svg" alt="Application Status" width="32%"></a>
+## 🔀 Actions
+
+### 🟢 TDA
+
+<p>
+  <p>
+    <a href="../../actions/workflows/status-tda.yml"><img src="assets/readme/cards/status-tda.svg" alt="TDA – NASE app status" width="31%"></a>
+  </p>
+  <p>
+    <a href="../../actions/workflows/deploy-all-tda.yml"><img src="assets/readme/cards/deploy-all-tda.svg" alt="TDA – Deploy all NASE apps" width="31%"></a>
+    &ensp;
+    <a href="../../actions/workflows/deploy-specific-tda.yml"><img src="assets/readme/cards/deploy-specific-tda.svg" alt="TDA – Deploy specific NASE app" width="31%"></a>
+  </p>
+  <p>
+    <a href="../../actions/workflows/deploy-server-tda.yml"><img src="assets/readme/cards/deploy-server-tda.svg" alt="TDA – Deploy server" width="31%"></a>
+  </p>
 </p>
 
----
+### 🔴 PROD
 
-<img src="assets/readme/containers.svg" alt="" width="220" align="right">
+<p>
+  <p>
+    <a href="../../actions/workflows/status-prod.yml"><img src="assets/readme/cards/status-prod.svg" alt="PRODUCTION – NASE app status" width="31%"></a>
+  </p>
+  <p>
+    <a href="../../actions/workflows/deploy-all-prod.yml"><img src="assets/readme/cards/deploy-all-prod.svg" alt="PRODUCTION – Deploy all NASE apps" width="31%"></a>
+    &ensp;
+    <a href="../../actions/workflows/deploy-specific-prod.yml"><img src="assets/readme/cards/deploy-specific-prod.svg" alt="PRODUCTION – Deploy specific NASE app" width="31%"></a>
+  </p>
+  <p>
+    <a href="../../actions/workflows/deploy-server-prod.yml"><img src="assets/readme/cards/deploy-server-prod.svg" alt="PRODUCTION – Deploy server" width="31%"></a>
+  </p>
+</p>
 
-## ℹ️ About
+## 📚 Documentation
 
-This repository contains tools and workflows for managing our NAS applications.
-Use the buttons above to deploy applications or check their status.
-
-| Action | What it does |
-| --- | --- |
-| 🚀 **Deploy All NAS Apps** | Deploys every application in this repository whose name starts with `nase-`. |
-| 📦 **Deploy Selected Apps** | Deploys only the applications you list when running the workflow. |
-| 📈 **Application Status** | Prints the deployment and runtime status of the applications. |
-
-> [!TIP]
-> Open a workflow and click **Run workflow** to start it.
-
-### 🔗 Quick Links
-
-📖 [Documentation](docs/) &nbsp;|&nbsp; 🐛 [Issues](../../issues) &nbsp;|&nbsp; ⚙️ [Configuration](config/)
+<p>
+  <a href="docs/getting-started.md"><img src="assets/readme/cards/docs-getting-started.svg" alt="Getting started – first steps and repository overview" width="31%"></a>
+  &ensp;
+  <a href="docs/configuration.md"><img src="assets/readme/cards/docs-configuration.svg" alt="Configuration – how to configure apps and servers" width="31%"></a>
+</p>
