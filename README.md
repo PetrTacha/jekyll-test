@@ -13,11 +13,10 @@
 <p>
   <p>
     <a href="../../actions/workflows/status-tda.yml"><img src="assets/readme/cards/status-tda.svg" alt="TDA – NASE app status" width="31%"></a>
-  </p>
-  <p>
-    <a href="../../actions/workflows/deploy-all-tda.yml"><img src="assets/readme/cards/deploy-all-tda.svg" alt="TDA – Deploy all NASE apps" width="31%"></a>
     &ensp;
-    <a href="../../actions/workflows/deploy-specific-tda.yml"><img src="assets/readme/cards/deploy-specific-tda.svg" alt="TDA – Deploy specific NASE app" width="31%"></a>
+     <a href="../../actions/workflows/deploy-specific-tda.yml"><img src="assets/readme/cards/deploy-specific-tda.svg" alt="TDA – Deploy specific NASE app" width="31%"></a>
+    &ensp;
+    <a href="../../actions/workflows/deploy-all-tda.yml"><img src="assets/readme/cards/deploy-all-tda.svg" alt="TDA – Deploy ALL NASE apps" width="31%"></a>
   </p>
   <p>
     <a href="../../actions/workflows/deploy-server-tda.yml"><img src="assets/readme/cards/deploy-server-tda.svg" alt="TDA – Deploy server" width="31%"></a>
@@ -29,11 +28,10 @@
 <p>
   <p>
     <a href="../../actions/workflows/status-prod.yml"><img src="assets/readme/cards/status-prod.svg" alt="PRODUCTION – NASE app status" width="31%"></a>
-  </p>
-  <p>
-    <a href="../../actions/workflows/deploy-all-prod.yml"><img src="assets/readme/cards/deploy-all-prod.svg" alt="PRODUCTION – Deploy all NASE apps" width="31%"></a>
+     &ensp;
+   <a href="../../actions/workflows/deploy-specific-prod.yml"><img src="assets/readme/cards/deploy-specific-prod.svg" alt="PRODUCTION – Deploy specific NASE app" width="31%"></a>
     &ensp;
-    <a href="../../actions/workflows/deploy-specific-prod.yml"><img src="assets/readme/cards/deploy-specific-prod.svg" alt="PRODUCTION – Deploy specific NASE app" width="31%"></a>
+    <a href="../../actions/workflows/deploy-all-prod.yml"><img src="assets/readme/cards/deploy-all-prod.svg" alt="PRODUCTION – Deploy ALL NASE apps" width="31%"></a>
   </p>
   <p>
     <a href="../../actions/workflows/deploy-server-prod.yml"><img src="assets/readme/cards/deploy-server-prod.svg" alt="PRODUCTION – Deploy server" width="31%"></a>
