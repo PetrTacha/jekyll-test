@@ -1,0 +1,67 @@
+{%- comment -%}
+  Tikající bomba s odpočtem.
+  Použití: {% include countdown-bomb.html target="2027-11-10T00:00:00" label="Do výbuchu zbývá" %}
+  target = cílové datum v ISO formátu (bez zóny = místní čas prohlížeče)
+{%- endcomment -%}
+<div class="cd-bomb" data-countdown-bomb data-target="{{ include.target | escape }}">
+<div class="cd-bomb__label">{{ include.label | default: "Do výbuchu zbývá" }}</div>
+<div class="cd-bomb__body">
+<svg class="cd-bomb__svg" viewBox="0 0 200 200" aria-hidden="true">
+<path class="cd-bomb__fuse" d="M128 52 C140 30, 160 36, 166 20" fill="none" stroke="#8b5a2b" stroke-width="5" stroke-linecap="round"/>
+<g class="cd-bomb__spark"><circle cx="166" cy="18" r="7" fill="#ffd23f"/><circle cx="166" cy="18" r="3.5" fill="#fff"/></g>
+<rect x="108" y="46" width="34" height="22" rx="4" transform="rotate(35 125 57)" fill="#333"/>
+<circle cx="95" cy="115" r="70" fill="#1d1d1f"/>
+<ellipse cx="68" cy="85" rx="16" ry="10" fill="#fff" opacity=".15" transform="rotate(-35 68 85)"/>
+</svg>
+<div class="cd-bomb__display" data-countdown-display>--:--:--</div>
+<div class="cd-bomb__boom" aria-hidden="true">💥<span>BOOM!</span></div>
+</div>
+</div>
+<style>
+.cd-bomb{display:inline-flex;flex-direction:column;align-items:center;gap:.5rem;font-family:system-ui,sans-serif;margin:1rem 0}
+.cd-bomb__label{font-weight:600;color:#444}
+.cd-bomb__body{position:relative;width:240px;height:240px;animation:cd-bomb-shake 1.2s ease-in-out infinite}
+.cd-bomb.is-critical .cd-bomb__body{animation-duration:.25s}
+.cd-bomb__svg{width:100%;height:100%;display:block}
+.cd-bomb__spark{transform-origin:166px 18px;animation:cd-bomb-spark .3s ease-in-out infinite alternate}
+.cd-bomb__display{position:absolute;left:50%;top:57%;transform:translate(-50%,-50%);background:#0b0b0b;border:2px solid #444;border-radius:6px;padding:.35rem .55rem;font:700 15px/1 "Courier New",ui-monospace,monospace;color:#ff3b30;text-shadow:0 0 6px rgba(255,59,48,.8);white-space:nowrap;letter-spacing:.5px}
+.cd-bomb__boom{display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;font-size:120px;line-height:1}
+.cd-bomb__boom span{font:900 32px/1 system-ui,sans-serif;color:#e63900}
+.cd-bomb.is-exploded .cd-bomb__body{animation:none}
+.cd-bomb.is-exploded .cd-bomb__svg,.cd-bomb.is-exploded .cd-bomb__display{display:none}
+.cd-bomb.is-exploded .cd-bomb__boom{display:flex;animation:cd-bomb-boom .6s ease-out}
+@keyframes cd-bomb-shake{0%,100%{transform:rotate(0)}25%{transform:rotate(-1.5deg)}75%{transform:rotate(1.5deg)}}
+@keyframes cd-bomb-spark{from{transform:scale(.8);opacity:.7}to{transform:scale(1.3);opacity:1}}
+@keyframes cd-bomb-boom{from{transform:scale(.2);opacity:0}to{transform:scale(1);opacity:1}}
+</style>
+<script>
+(function () {
+var root = document.currentScript.previousElementSibling.previousElementSibling;
+var display = root.querySelector('[data-countdown-display]');
+var target = new Date(root.getAttribute('data-target'));
+if (isNaN(target.getTime())) { console.warn('countdown-bomb: neplatný target', root.getAttribute('data-target')); return; }
+function pad(n) { return (n < 10 ? '0' : '') + n; }
+function addMonths(d, m) { var r = new Date(d.getTime()); r.setMonth(r.getMonth() + m); return r; }
+var timer;
+function tick() {
+var now = new Date();
+if (target - now <= 0) {
+clearInterval(timer);
+display.textContent = '00:00:00';
+root.classList.add('is-exploded');
+return;
+}
+var months = 0;
+while (addMonths(now, months + 1) <= target) months++;
+var rest = Math.floor((target - addMonths(now, months)) / 1000);
+var days = Math.floor(rest / 86400); rest %= 86400;
+var h = Math.floor(rest / 3600); rest %= 3600;
+var m = Math.floor(rest / 60), s = rest % 60;
+var text = (months ? months + ' m ' : '') + (months || days ? days + ' d ' : '') + pad(h) + ':' + pad(m) + ':' + pad(s);
+display.textContent = text;
+root.classList.toggle('is-critical', target - now <= 60000);
+}
+tick();
+timer = setInterval(tick, 1000);
+})();
+</script>
