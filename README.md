@@ -38,10 +38,12 @@
   </p>
 </p>
 
-## 📚 Documentation
+## 📚 Documentation & links
 
 <p>
-  <a href="docs/getting-started.md"><img src="assets/readme/cards/docs-getting-started.svg" alt="Getting started – first steps and repository overview" width="31%"></a>
-  &ensp;
+  
   <a href="docs/configuration.md"><img src="assets/readme/cards/docs-configuration.svg" alt="Configuration – how to configure apps and servers" width="31%"></a>
+   &ensp;
+  <a href="docs/getting-started.md"><img src="assets/readme/cards/docs-getting-started.svg" alt="Getting started – first steps and repository overview" width="31%"></a>
+
 </p>
