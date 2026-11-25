@@ -1,16 +1,16 @@
 <p align="center">
-  <img src="assets/header.svg" alt="NAS Apps – Manage and deploy our applications with ease" width="100%">
+  <img src="assets/readme/header.svg" alt="NAS Apps – Manage and deploy our applications with ease" width="100%">
 </p>
 
 <p align="center">
-  <a href="../../actions/workflows/deploy-all.yml"><img src="assets/btn-deploy-all.svg" alt="Deploy All NAS Apps" width="32%"></a>
-  <a href="../../actions/workflows/deploy-selected.yml"><img src="assets/btn-deploy-selected.svg" alt="Deploy Selected Apps" width="32%"></a>
-  <a href="../../actions/workflows/status.yml"><img src="assets/btn-status.svg" alt="Application Status" width="32%"></a>
+  <a href="../../actions/workflows/deploy-all.yml"><img src="assets/readme/btn-deploy-all.svg" alt="Deploy All NAS Apps" width="32%"></a>
+  <a href="../../actions/workflows/deploy-selected.yml"><img src="assets/readme/btn-deploy-selected.svg" alt="Deploy Selected Apps" width="32%"></a>
+  <a href="../../actions/workflows/status.yml"><img src="assets/readme/btn-status.svg" alt="Application Status" width="32%"></a>
 </p>
 
 ---
 
-<img src="assets/containers.svg" alt="" width="220" align="right">
+<img src="assets/readme/containers.svg" alt="" width="220" align="right">
 
 ## ℹ️ About
 
